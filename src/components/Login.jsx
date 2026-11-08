@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import './Login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [selectedRole, setSelectedRole] = useState('regular');
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -21,14 +20,13 @@ function Login() {
       return;
     }
 
-    // Mock authentication - accepts any username/password
-    // In a real app, this would validate against a backend
+    // Demo authentication (see AuthContext); a real app would call a backend
     try {
-      login(username, password, selectedRole);
+      login(username, password);
       // Redirect to saved articles after successful login
       navigate('/saved');
     } catch (err) {
-      setError('Login failed. Please try again.');
+      setError(err.message);
     }
   };
 
@@ -63,18 +61,6 @@ function Login() {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="role">Account Type</label>
-            <select
-              id="role"
-              value={selectedRole}
-              onChange={(e) => setSelectedRole(e.target.value)}
-            >
-              <option value="regular">Regular User</option>
-              <option value="premium">Premium User</option>
-            </select>
-          </div>
-
           <button type="submit" className="btn btn-primary login-button">
             Login
           </button>
@@ -82,8 +68,9 @@ function Login() {
 
         <div className="demo-accounts">
           <p className="demo-title">Demo Accounts (for testing):</p>
-          <p>Any username/password combination will work</p>
-          <p>Select "Regular" or "Premium" to test different access levels</p>
+          <p>alice / alice123 (regular)</p>
+          <p>bob / bob123 (regular)</p>
+          <p>admin / admin123 (admin)</p>
         </div>
       </div>
     </div>

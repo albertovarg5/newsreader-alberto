@@ -49,6 +49,20 @@ This application has several security issues that you will need to fix as part o
 
 5. Open your browser to `http://localhost:5173`
 
+## Demo Login and localStorage (classroom demo only)
+
+This app has no backend, so login is a **demo**. Accounts are hard-coded in `src/context/AuthContext.jsx`:
+
+| Username | Password | Role |
+|---|---|---|
+| alice | alice123 | regular |
+| bob | bob123 | regular |
+| admin | admin123 | admin |
+
+The logged-in username/role and each user's saved articles (organized by username) are kept in the browser's `localStorage`, so they survive a page refresh. Passwords are never stored there. Invalid or tampered stored data is ignored.
+
+**localStorage is not secure authentication.** Anyone can open DevTools and read or edit it, the demo passwords are visible in the JavaScript bundle, and the route/admin checks only run in the browser. Data is also per browser: it is not shared between browsers or devices (so the admin only sees articles saved in the same browser). A real app needs a server with hashed passwords, signed sessions, and a database.
+
 ## Project Structure
 
 ```
@@ -94,3 +108,5 @@ You will need to:
 6. Deploy the application to Vercel
 
 Good luck!
+
+Please update README.md to reflect the completed NewsReader security assignment instead of describing the original unsecured starter application. Keep it short, simple, and student-friendly. Include the implemented features, demo login accounts, how to run the application, NY Times API environment variable setup, and the limitations of browser-only demo authentication and localStorage. Keep the project tree accurate. Do not claim that the app provides production-secure authentication or server-side API key protection. Do not change application code, commit, or push anything.

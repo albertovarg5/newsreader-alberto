@@ -1,5 +1,9 @@
+import { useArticles } from '../context/useArticles';
+
+// The /admin route is wrapped in <ProtectedRoute adminOnly>; getAllUserArticles also returns {} for non-admins.
 function AdminPage() {
-  // Check if a user is an admin and return all users' saved articles if they are. Redirect them to home if not.
+  const { getAllUserArticles } = useArticles();
+  const allUserArticles = getAllUserArticles();
 
   return (
     <div>
